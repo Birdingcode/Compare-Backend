@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "compare-backend"
+version = "0.1.0"
+description = ""
+authors = ["Birdingcode <filbert.goh@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
