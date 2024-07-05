@@ -5,8 +5,17 @@ description = ""
 authors = ["Birdingcode <filbert.goh@gmail.com>"]
 readme = "README.md"
 
+# try to add uvloop eventually to speedup asyncio loop
 [tool.poetry.dependencies]
 python = "^3.11"
+fastapi = "^0.111.0"
+pydantic = "^2.8.2"
+pydantic-settings = "^2.3.4"
+sqlalchemy = "^2.0.31"
+asyncpg = "^0.29.0"
+tenacity = "^8.4.2"
+alembic = "^1.13.2"
+uvicorn = "^0.30.1"
 
 [tool.setuptools]
 package-dir = {"" = "src"}
