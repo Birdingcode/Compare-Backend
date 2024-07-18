@@ -24,48 +24,6 @@ class FinancialStatementService:
         result = await db.execute(query, {"symbol": symbol})
         return [self._get_schema(statement_type).from_orm(row) for row in result.fetchall()]
 
-    # async def create_or_update_statements(self, db: AsyncSession, statements: List[Dict[str, Any]],statement_type: str) -> List[StatementType]:
-    #     table_name = self._get_table_name(statement_type)
-    #     schema = self._get_schema(statement_type)
-    #
-    #     results = []
-    #     for statement_data in statements:
-    #         # Use your existing schema to parse the raw data
-    #         statement = schema(**statement_data)
-    #
-    #         query = text(f"""
-    #             INSERT INTO {table_name} ({', '.join(statement.dict().keys())})
-    #             VALUES ({', '.join([f':{k}' for k in statement.dict().keys()])})
-    #             ON CONFLICT (symbol, calendar_year, period)
-    #             DO NOTHING
-    #             RETURNING *
-    #         """)
-    #
-    #         result = await db.execute(query, statement.dict())
-    #         inserted_row = result.fetchone()
-    #
-    #         if inserted_row:
-    #             results.append(schema.from_orm(inserted_row))
-    #         else:
-    #             # If no insert occurred, fetch the existing record
-    #             existing_query = text(f"""
-    #                 SELECT * FROM {table_name}
-    #                 WHERE symbol = :symbol
-    #                 AND calendar_year = :calendar_year
-    #                 AND period = :period
-    #             """)
-    #             existing_result = await db.execute(existing_query, {
-    #                 "symbol": statement.symbol,
-    #                 "calendar_year": statement.calendar_year,
-    #                 "period": statement.period
-    #             })
-    #             existing_row = existing_result.fetchone()
-    #             if existing_row:
-    #                 results.append(schema.from_orm(existing_row))
-    #
-    #     await db.commit()
-    #     return results
-
     async def create_or_update_statements(self, db: AsyncSession, statements: List[Dict[str, Any]],statement_type: str) -> List[StatementType]:
         table_name = self._get_table_name(statement_type)
         schema = self._get_schema(statement_type)
