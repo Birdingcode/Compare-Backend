@@ -1,7 +1,7 @@
 from logging.config import fileConfig
 from sqlalchemy.ext.asyncio import async_engine_from_config
 from sqlalchemy import pool
-from src.core.db import metadata
+from src.db.session import Base
 from alembic import context
 
 # this is the Alembic Config object, which provides
@@ -17,7 +17,7 @@ if config.config_file_name is not None:
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-target_metadata = metadata
+target_metadata = Base.metadata
 
 
 # other values from the config, defined by the needs of env.py,
@@ -26,7 +26,7 @@ target_metadata = metadata
 # ... etc.
 
 
-def run_migrations_offline() -> None:
+async def run_migrations_offline() -> None:
     """Run migrations in 'offline' mode.
 
     This configures the context with just a URL
@@ -64,7 +64,7 @@ async def run_migrations_online() -> None:
     )
 
     async with connectable.connect() as connection:
-        await connection.run_sync((do_run_migrations))
+        await connection.run_sync(do_run_migrations)
 
 
 def do_run_migrations(connection):

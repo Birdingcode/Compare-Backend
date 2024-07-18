@@ -1,12 +1,10 @@
 import asyncio
 import logging
-from uvicorn import loops
-import os
 from fastapi.logger import logger as fastapi_logger
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.ext.asyncio.engine import AsyncEngine
 from sqlalchemy import text
-from src.core.db import engine
+from src.db.session import engine
 from tenacity import after_log, before_log, retry, stop_after_attempt, wait_fixed
 
 # Configure logging
